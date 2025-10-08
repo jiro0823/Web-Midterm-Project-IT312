@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Automation Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-100 via-green-50 to-indigo-100 min-h-screen flex items-center justify-center">
+
+   <!-- X Button -->
+    <a href="{% url 'dashboard' %}" 
+       class="absolute top-4 right-4 text-gray-500 hover:text-red-600 transition duration-200 text-2xl font-bold">
+      &times;
+    </a>
+
+  <div class="max-w-lg w-full bg-white shadow-2xl rounded-2xl p-8">
+    <h2 class="text-3xl font-extrabold mb-6 text-center text-blue-700">Automation Panel</h2>
+    <form method="POST" class="space-y-4">
+      {% csrf_token %}
+      <button name="send_test" class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300">
+        Send Test Email
+      </button>
+    </form>
+    {% if status %}
+      <div class="mt-6 p-4 rounded-xl text-center {% if 'success' in status %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
+        {{ status }}
+      </div>
+    {% endif %}
+    <div class="mt-8 text-gray-600 text-center text-sm">
+      Daily motivational emails are sent automatically at 08:00.
+    </div>
+  </div>
+</body>
+</html>

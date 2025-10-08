@@ -1,0 +1,604 @@
+{% load i18n %}
+{% load account socialaccount %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}MidTerm Project{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
+  <link href="{% static 'css/dist/styles.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+…" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  
+
+  <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+</head>
+
+<body class="bg-nft-gradient text-white font-sans flex flex-col min-h-screen">
+
+
+
+     <!-- Navbar -->
+<nav id="mainNavbar" 
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-500 
+         bg-transparent backdrop-blur-md">
+  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    
+    <!-- Logo -->
+    <a href="{% if user.is_authenticated %}{% url 'dashboard' %}{% else %}#{% endif %}" 
+       class="text-2xl font-extrabold text-white tracking-tight drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]">
+      MIDTERM APP
+    </a>
+
+    <!-- Nav Links -->
+    <div class="hidden md:flex items-center space-x-8">
+      <a href="#home"
+         class="relative text-white/80 hover:text-white transition duration-300 
+                after:content-[''] after:absolute after:w-0 after:h-[2px] after:left-0 after:-bottom-1 
+                after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+        Home
+      </a>
+
+      <a href="#features"
+         class="relative text-white/80 hover:text-white transition duration-300 
+                after:content-[''] after:absolute after:w-0 after:h-[2px] after:left-0 after:-bottom-1 
+                after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+        Features
+      </a>
+
+      <a href="#about"
+         class="relative text-white/80 hover:text-white transition duration-300 
+                after:content-[''] after:absolute after:w-0 after:h-[2px] after:left-0 after:-bottom-1 
+                after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+        About Us
+      </a>
+
+      <a href="#team"
+         class="relative text-white/80 hover:text-white transition duration-300 
+                after:content-[''] after:absolute after:w-0 after:h-[2px] after:left-0 after:-bottom-1 
+                after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+        Team
+      </a>
+
+      <a href="#technologies"
+         class="relative text-white/80 hover:text-white transition duration-300 
+                after:content-[''] after:absolute after:w-0 after:h-[2px] after:left-0 after:-bottom-1 
+                after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+        Technologies Used
+      </a>
+    </div>
+
+    <!-- Auth Buttons -->
+    <div class="flex items-center space-x-4">
+      {% if user.is_authenticated %}
+        <span class="text-white/80">
+          Hello, <span class="font-semibold text-white">{{ user.username }}</span>
+        </span>
+
+        <a href="{% url 'account_logout' %}"
+           class="px-4 py-2 bg-pink-600 text-white rounded-xl text-lg font-semibold shadow-md 
+         hover:bg-pink-700 transition duration-300">
+          Logout
+        </a>
+
+      {% else %}
+        <a href="{% url 'account_login' %}"
+           class="px-4 py-2 bg-pink-600 text-white rounded-xl text-lg font-semibold shadow-md 
+         hover:bg-pink-700 transition duration-300">
+          Login
+        </a>
+
+        <a href="{% url 'account_signup' %}"
+  class="px-4 py-2 border-2 border-pink-500 text-pink-500 rounded-xl text-lg font-semibold 
+         hover:bg-pink-500 hover:text-white transition duration-300 shadow-md">
+  Signup
+</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+
+  {% block content %}
+  {% endblock %}
+
+
+ 
+<!-- Welcome Section -->
+<section id="home"
+  class="relative py-40 flex flex-col justify-center items-center text-center bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-800">
+
+
+  
+  <!-- Content -->
+  <div class="relative container mx-auto px-6 text-center text-gray-900 dark:text-white">
+    
+    <!-- Gradient Text Heading -->
+    <h1 class="text-6xl md:text-7xl font-extrabold mb-6 bg-gradient-to-r from-purple-600 via-pink-500 via-orange-400 to-yellow-400 text-transparent bg-clip-text drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
+      Welcome to Our <br> MIDTERM WEB PROJECT
+    </h1>
+    
+    <p class="text-xl md:text-2xl max-w-3xl mx-auto mb-12 text-white/90 drop-shadow-[0_2px_6px_rgba(0,0,0,0.3)]">
+      Explore secure authentication, QR code generation, API integrations, and automation features designed
+      to streamline your workflow and enhance productivity.
+    </p>
+
+    <div class="flex justify-center gap-6">
+      {% if user.is_authenticated %}
+        <!-- Show this only when user IS logged in -->
+        <a href="{% url 'account_login' %}"
+           class="px-8 py-4 bg-pink-600 text-white rounded-xl text-lg font-semibold shadow-md 
+         hover:bg-pink-700 transition duration-300">
+          Dashboard
+        </a>
+      {% else %}
+        <!-- Show this only when user is NOT logged in -->
+       <a href="{% url 'account_login' %}"
+  class="px-8 py-4 border-2 border-pink-500 text-pink-500 rounded-xl text-lg font-semibold 
+         shadow-md hover:bg-pink-500 hover:text-white transition duration-300">
+  Get Started
+</a>
+
+
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+  <!-- Project Features Carousel Section -->
+  <section id="features" 
+  class="relative min-h-screen w-full flex flex-col justify-center items-center text-center text-white 
+         bg-gradient-to-tr from-indigo-950 via-purple-900 to-pink-800"> 
+
+<h3 class="text-4xl md:text-5xl font-extrabold mb-12 pb-12 text-center 
+     bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 
+     text-transparent bg-clip-text drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]">
+  Project Features
+</h3>
+
+    <div class="relative">
+      <!-- Carousel Container -->
+      <div id="carousel" class="flex overflow-hidden h-[520px] max-w-[1200px] mx-auto">
+        <!-- Slides Wrapper -->
+        <div class="flex transition-transform duration-500 ease-in-out" id="slides">
+
+          <!-- Slide 1 -->
+          <div class="min-w-[320px] md:min-w-[360px] flex-shrink-0 mx-4">
+            <div
+              class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl flex flex-col h-[500px]">
+              <div class="h-48 bg-purple-100 flex items-center justify-center">
+                <i class="fas fa-lock text-5xl text-purple-700"></i>
+              </div>
+              <div class="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-3">Secure Authentication</h3>
+                  <p class="text-gray-600 mb-6">Implement secure login, registration, and user management with Django's
+                    authentication system.</p>
+                </div>
+                <a href="{% if user.is_authenticated %} {% url 'security_auth' %} {% else %}{% url 'account_login' %}{% endif %}"
+                  class="w-full text-center py-3 rounded-xl bg-purple-600 text-white font-semibold hover:bg-purple-700 transition">Learn
+                  More</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="min-w-[320px] md:min-w-[360px] flex-shrink-0 mx-4">
+            <div
+              class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl flex flex-col h-[500px]">
+              <div class="h-48 bg-blue-100 flex items-center justify-center">
+                <i class="fas fa-shield-alt text-5xl text-blue-600"></i>
+              </div>
+              <div class="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-3">Cipher Encryption</h3>
+                  <p class="text-gray-600 mb-6">Protect sensitive data with advanced encryption and secure storage
+                    mechanisms.</p>
+                </div>
+                <a href="{% if user.is_authenticated %} {% url 'cipher' %} {% else %}{% url 'account_login' %}{% endif %}"
+                  class="w-full text-center py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">Learn
+                  More</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="min-w-[320px] md:min-w-[360px] flex-shrink-0 mx-4">
+            <div
+              class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl flex flex-col h-[500px]">
+              <div class="h-48 bg-green-100 flex items-center justify-center">
+                <i class="fas fa-qrcode text-5xl text-green-600"></i>
+              </div>
+              <div class="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-3">QR Code Generator</h3>
+                  <p class="text-gray-600 mb-6">Generate QR codes for various data, ensuring quick and easy scanning for
+                    users.</p>
+                </div>
+                <a href="{% if user.is_authenticated %} {% url 'Qr' %} {% else %}{% url 'account_login' %}{% endif %}"
+                  class="w-full text-center py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition">Learn
+                  More</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="min-w-[320px] md:min-w-[360px] flex-shrink-0 mx-4">
+            <div
+              class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl flex flex-col h-[500px]">
+              <div class="h-48 bg-pink-100 flex items-center justify-center">
+                <i class="fas fa-plug text-5xl text-pink-600"></i>
+              </div>
+              <div class="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-3">API Integration</h3>
+                  <p class="text-gray-600 mb-6">Seamlessly connect with external services using REST APIs to enhance
+                    your application's capabilities.</p>
+                </div>
+                <a href="{% if user.is_authenticated %} {% url 'api_panel' %} {% else %}{% url 'account_login' %}{% endif %}"
+                  class="w-full text-center py-3 rounded-xl bg-pink-600 text-white font-semibold hover:bg-pink-700 transition">Learn
+                  More</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 5 -->
+          <div class="min-w-[320px] md:min-w-[360px] flex-shrink-0 mx-4">
+            <div
+              class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl flex flex-col h-[500px]">
+              <div class="h-48 bg-yellow-100 flex items-center justify-center">
+                <i class="fas fa-robot text-5xl text-yellow-600"></i>
+              </div>
+              <div class="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-3">Daily Automation</h3>
+                  <p class="text-gray-600 mb-6">Automate routine tasks and workflows to improve efficiency and
+                    productivity.</p>
+                </div>
+                <a href="{% if user.is_authenticated %} {% url 'automation' %}  {% else %}{% url 'account_login' %}{% endif %}"
+                  class="w-full text-center py-3 rounded-xl bg-yellow-500 text-white font-semibold hover:bg-yellow-600 transition">Learn
+                  More</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 6 -->
+          <div class="min-w-[320px] md:min-w-[360px] flex-shrink-0 mx-4">
+            <div
+              class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl flex flex-col h-[500px]">
+              <div class="h-48 bg-indigo-100 flex items-center justify-center">
+                <i class="fas fa-chart-line text-5xl text-indigo-600"></i>
+              </div>
+              <div class="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-3">Advanced Analytics</h3>
+                  <p class="text-gray-600 mb-6">Gain insights with dashboards and analytics, providing actionable
+                    information from your data.</p>
+                </div>
+                <a href=" {% if user.is_authenticated %} {% url 'panel6' %}  {% else %}{% url 'account_login' %}{% endif %}"
+                  class="w-full text-center py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">Learn
+                  More</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button id="prev"
+          class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-purple-700 text-white p-4 rounded-full hover:bg-purple-800 transition text-xl shadow-md">
+          &#8592;
+        </button>
+        <button id="next"
+          class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-purple-700 text-white p-4 rounded-full hover:bg-purple-800 transition text-xl shadow-md">
+          &#8594;
+        </button>
+      </div>
+
+      <!-- Pagination Dots -->
+      <div class="flex justify-center mt-6 gap-2" id="dots">
+        <span class="w-3 h-3 bg-gray-300 rounded-full inline-block"></span>
+        <span class="w-3 h-3 bg-gray-300 rounded-full inline-block"></span>
+        <span class="w-3 h-3 bg-gray-300 rounded-full inline-block"></span>
+        <span class="w-3 h-3 bg-gray-300 rounded-full inline-block"></span>
+        <span class="w-3 h-3 bg-gray-300 rounded-full inline-block"></span>
+        <span class="w-3 h-3 bg-gray-300 rounded-full inline-block"></span>
+      </div>
+    </div>
+  </section>
+
+
+
+<!-- Enhanced About Us Section -->
+<section id="about" 
+  class="relative min-h-screen w-full flex flex-col justify-center items-center text-center 
+         bg-gradient-to-br from-indigo-950 via-purple-900 to-indigo-950 text-white px-6 py-20">
+  <!-- Heading -->
+  <h2 class="text-4xl md:text-5xl font-extrabold mb-12 pt-12 text-center 
+     bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 
+     text-transparent bg-clip-text drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]">
+    About Us
+  </h2>
+  <p class="text-center text-white dark:text-gray-300 max-w-2xl mx-auto mb-16 leading-relaxed">
+    This portfolio website showcases all activities and projects completed for 
+    <span class="font-semibold">IT312</span> under Sir Ian Val Delos Reyes.  
+    Explore our work in secure authentication, encryption, API integration, automation, and more—all developed as part of our coursework.
+  </p>
+
+  <!-- Grid Layout -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <!-- Big Left Image Box -->
+    <div class="md:col-span-2 md:row-span-2 rounded-2xl shadow-lg bg-white dark:bg-gray-800 overflow-hidden transform transition duration-300 hover:scale-[1.02] hover:shadow-2xl">
+      <img src="{% static 'accounts/images/pic1.jpg' %}" alt="Quantum-Resistant" class="w-full h-72 object-cover">
+      <div class="p-6">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Quantum-Resistant Encryption</h3>
+        <p class="text-gray-600 dark:text-gray-300 mt-2 text-sm">
+          Future-proof your data security with advanced quantum-resistant algorithms.
+        </p>
+      </div>
+    </div>
+
+    <!-- Small Top Box -->
+    <div class="rounded-2xl shadow-md bg-white dark:bg-gray-800 overflow-hidden transition hover:scale-[1.02] hover:shadow-lg">
+      <img src="{% static 'accounts/images/pic3.jpg' %}" alt="Audit System" class="w-full h-32 object-cover">
+      <div class="p-4">
+        <h3 class="font-bold text-gray-900 dark:text-white">Audit System</h3>
+        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Transparent and secure auditing tools.</p>
+      </div>
+    </div>
+
+    <!-- Small Top Box -->
+    <div class="rounded-2xl shadow-md bg-white dark:bg-gray-800 overflow-hidden transition hover:scale-[1.02] hover:shadow-lg">
+      <img src="{% static 'accounts/images/pic2.jpg' %}" alt="Unit Integration" class="w-full h-32 object-cover">
+      <div class="p-4">
+        <h3 class="font-bold text-gray-900 dark:text-white">Unit Integration</h3>
+        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Seamless integration of blockchain units.</p>
+      </div>
+    </div>
+
+    <!-- Tall Center Box -->
+    <div class="md:row-span-2 rounded-2xl shadow-md bg-white dark:bg-gray-800 overflow-hidden transition hover:scale-[1.02] hover:shadow-lg">
+      <img src="{% static 'accounts/images/pic5.jpg' %}" alt="Developer Tools" class="w-full h-64 object-cover">
+      <div class="p-4">
+        <h3 class="font-bold text-lg text-gray-900 dark:text-white">Developer Tools</h3>
+        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">
+          APIs, SDKs, and libraries for blockchain developers.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Left Small Box -->
+    <div class="rounded-2xl shadow-md bg-white dark:bg-gray-800 overflow-hidden transition hover:scale-[1.02] hover:shadow-lg">
+      <img src="{% static 'accounts/images/pic6.jpg' %}" alt="Interoperability" class="w-full h-32 object-cover">
+      <div class="p-4">
+        <h3 class="font-bold text-gray-900 dark:text-white">Interoperability</h3>
+        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Cross-chain compatibility for global networks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="team" class="relative min-h-screen w-full flex flex-col justify-center items-center text-center 
+bg-gradient-to-bl from-indigo-950 via-purple-900 to-indigo-950 text-white px-6 py-20">
+
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="text-3xl md:text-7xl font-extrabold mt-10 mb-16 
+      bg-gradient-to-r from-purple-600 via-pink-500 via-orange-400 to-yellow-400 
+      text-transparent bg-clip-text drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
+      Meet Our Team
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      
+      <!-- Member 1 -->
+      <div class="team-card group relative bg-white/10 backdrop-blur-lg border border-white/20 
+                  rounded-2xl shadow-lg hover:shadow-2xl hover:border-purple-500/40 
+                  transition-all duration-300 transform hover:-translate-y-2 p-8 cursor-pointer"
+           data-name="Sylver Fuentes"
+           data-role="Frontend Developer"
+           data-img="{% static 'accounts/images/sylber.jpg' %}"
+           data-text="Passionate about crafting clean and interactive user interfaces with modern frameworks.">
+        <img src="{% static 'accounts/images/sylber.jpg' %}" 
+             alt="Sylver Fuentes" 
+             class="w-32 h-32 rounded-full mx-auto mb-6 object-cover ring-4 ring-purple-600/40 group-hover:ring-pink-500/60 transition">
+        <h3 class="text-2xl font-semibold text-white mb-1">Sylver Fuentes</h3>
+        <p class="text-purple-400 font-medium mb-2">Frontend Developer</p>
+        <p class="text-gray-300 text-base leading-relaxed">
+          Passionate about crafting clean and interactive user interfaces with modern frameworks.
+        </p>
+      </div>
+
+      <!-- Member 2 -->
+      <div class="team-card group relative bg-white/10 backdrop-blur-lg border border-white/20 
+                  rounded-2xl shadow-lg hover:shadow-2xl hover:border-purple-500/40 
+                  transition-all duration-300 transform hover:-translate-y-2 p-8 cursor-pointer"
+           data-name="Kevin Alcaide"
+           data-role="Backend Engineer"
+           data-img="{% static 'accounts/images/kevin.png' %}"
+           data-text="Focuses on building secure, efficient, and scalable server-side applications.">
+        <img src="{% static 'accounts/images/kevin.png' %}" 
+             alt="Kevin Alcaide" 
+             class="w-32 h-32 rounded-full mx-auto mb-6 object-cover ring-4 ring-purple-600/40 group-hover:ring-pink-500/60 transition">
+        <h3 class="text-2xl font-semibold text-white mb-1">Kevin Alcaide</h3>
+        <p class="text-purple-400 font-medium mb-2">Backend Engineer</p>
+        <p class="text-gray-300 text-base leading-relaxed">
+          Focuses on building secure, efficient, and scalable server-side applications.
+        </p>
+      </div>
+
+      <!-- Member 3 -->
+      <div class="team-card group relative bg-white/10 backdrop-blur-lg border border-white/20 
+                  rounded-2xl shadow-lg hover:shadow-2xl hover:border-purple-500/40 
+                  transition-all duration-300 transform hover:-translate-y-2 p-8 cursor-pointer"
+           data-name="Hazel Felicilda"
+           data-role="UI/UX Designer"
+           data-img="{% static 'accounts/images/hazel.png' %}"
+           data-text="Designs intuitive and elegant user experiences with a focus on simplicity and accessibility.">
+        <img src="{% static 'accounts/images/hazel.png' %}" 
+             alt="Hazel Felicilda" 
+             class="w-32 h-32 rounded-full mx-auto mb-6 object-cover ring-4 ring-purple-600/40 group-hover:ring-pink-500/60 transition">
+        <h3 class="text-2xl font-semibold text-white mb-1">Hazel Felicilda</h3>
+        <p class="text-purple-400 font-medium mb-2">UI/UX Designer</p>
+        <p class="text-gray-300 text-base leading-relaxed">
+          Designs intuitive and elegant user experiences with a focus on simplicity and accessibility.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="teamModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50">
+    <div class="bg-white rounded-2xl shadow-2xl w-11/12 md:w-1/2 max-w-lg text-center p-8 relative">
+      <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
+      ✖
+    </button>
+      <img id="modalImg" src="" alt="Team Member" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover ring-4 ring-purple-500/40">
+      <h3 id="modalName" class="text-2xl font-semibold text-gray-800"></h3>
+      <p id="modalRole" class="text-purple-600 font-medium mb-3"></p>
+      <p id="modalText" class="text-gray-600 leading-relaxed"></p>
+
+       
+    <!-- Header -->
+    <div class="flex justify-between items-center px-6 py-4 border-b">
+      
+      
+    </div>
+
+    <!-- Timeline -->
+    <div class="p-6">
+      <div class="relative border-l-4 border-purple-600 pl-6 space-y-6">
+
+        <div>
+          <h3 class="font-semibold text-gray-800">Planning & Research</h3>
+          <p class="text-gray-600 text-sm">Brainstormed concept, gathered requirements, and chose tech stack.</p>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-gray-800">Design & Layout</h3>
+          <p class="text-gray-600 text-sm">Created the site layout and color scheme using Tailwind CSS.</p>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-gray-800">Development</h3>
+          <p class="text-gray-600 text-sm">Built backend with Django and linked frontend pages.</p>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-gray-800">Testing</h3>
+          <p class="text-gray-600 text-sm">Fixed bugs, optimized responsiveness, and improved UI design.</p>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-gray-800">Completion</h3>
+          <p class="text-gray-600 text-sm">Finalized all pages and prepared for presentation.</p>
+        </div>
+
+      </div>
+    </div>
+    </div>
+  </div>
+
+  
+
+
+</section>
+
+
+
+  <!-- Technologies Section -->
+<section id="technologies" class="relative py-40 flex flex-col justify-center items-center text-center bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-800">
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-12 pb-12 text-center 
+    bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 
+    text-transparent bg-clip-text drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]">
+      Technologies Used
+    </h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-12 items-center">
+      
+      <!-- Django -->
+      <div class="tech-item bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center transition-transform transform hover:scale-105 hover:shadow-2xl">
+        <img src="{% static 'accounts/images/django.png' %}" alt="Django Logo" class="w-20 h-20 mb-4">
+        <p class="text-gray-800 font-semibold text-lg">Django</p>
+      </div>
+
+      <!-- Python -->
+      <div class="tech-item bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center transition-transform transform hover:scale-105 hover:shadow-2xl">
+        <img src="{% static 'accounts/images/python.png' %}" alt="Python Logo" class="w-20 h-20 mb-4">
+        <p class="text-gray-800 font-semibold text-lg">Python</p>
+      </div>
+
+      <!-- TailwindCSS -->
+      <div class="tech-item bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center transition-transform transform hover:scale-105 hover:shadow-2xl">
+        <img src="{% static 'accounts/images/tailwindcss.png' %}" alt="Tailwind Logo" class="w-20 h-20 mb-4">
+        <p class="text-gray-800 font-semibold text-lg">TailwindCSS</p>
+      </div>
+
+      <!-- XAMPP -->
+      <div class="tech-item bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center transition-transform transform hover:scale-105 hover:shadow-2xl">
+        <img src="{% static 'accounts/images/xamp.png' %}" alt="XAMPP Logo" class="w-20 h-20 mb-4">
+        <p class="text-gray-800 font-semibold text-lg">XAMPP</p>
+      </div>
+
+      <!-- JavaScript -->
+      <div class="tech-item bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center transition-transform transform hover:scale-105 hover:shadow-2xl">
+        <img src="{% static 'accounts/images/javascript.png' %}" alt="JS Logo" class="w-20 h-20 mb-4">
+        <p class="text-gray-800 font-semibold text-lg">JavaScript</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+  <!-- Call-to-Action Section -->
+  <section  class="relative min-h-screen w-full flex flex-col justify-center items-center text-center text-white 
+         bg-gradient-to-tr from-indigo-950 via-purple-900 to-pink-800"> 
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-7xl font-extrabold mt-10 pb-12 mb-8 mx-auto 
+bg-gradient-to-r from-purple-600 via-pink-500 via-orange-400 to-yellow-400 
+text-transparent bg-clip-text drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
+        Ready to elevate your workflow?
+      </h2>
+      <p class="text-lg md:text-xl text-text-700 max-w-2xl mx-auto mb-12">
+        Join us today and experience the power of secure authentication, automation, and seamless integrations. Start
+        building smarter solutions with our Django web application.
+      </p>
+      <a href="{% url 'account_signup' %}"
+          class="px-8 py-5 bg-pink-600 text-white rounded-xl text-lg font-semibold shadow-md 
+         hover:bg-pink-700 transition duration-300">
+        Get Started
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="w-full bg-indigo-950 text-white text-center py-6 border-t border-indigo-900">
+    <div class="container mx-auto px-6 py-8 text-center text-gray-500 text-sm">
+      © {{ now|date:"Y" }} My Project. All rights reserved.
+    </div>
+  </footer>
+
+
+
+
+  <script src="{% static 'accounts/js/main.js' %}"></script>
+
+</body>
+
+</html>

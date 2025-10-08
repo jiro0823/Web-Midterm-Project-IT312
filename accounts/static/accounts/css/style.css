@@ -1,0 +1,65 @@
+
+
+    html {
+    scroll-behavior: smooth; /* enables smooth scrolling for anchor links */
+  }
+
+    /* Panel hover animation */
+    .panel:hover {
+      transform: translateY(-5px) scale(1.05);
+      transition: all 0.3s ease;
+    }
+
+    /* View button animation */
+    .btn-view:hover {
+      transform: translateY(-2px) scale(1.05);
+      transition: all 0.3s ease;
+    }
+    
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Add reusable classes */
+    .bounce {
+      animation: bounce 0.6s ease;
+    }
+
+    .spin {
+      animation: spin 0.6s linear;
+    }
+ 
+
+
+
+     @keyframes cloud {
+    0% { transform: translateX(-200px); }
+    100% { transform: translateX(120vw); }
+  }
+
+  .animate-cloud {
+    animation: cloud 60s linear infinite;
+  }
+
+  .animate-cloud-slow {
+    animation: cloud 100s linear infinite;
+  }

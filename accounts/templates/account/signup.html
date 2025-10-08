@@ -1,0 +1,107 @@
+{% load i18n %}
+{% load socialaccount %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="relative py-40 flex flex-col justify-center items-center text-center 
+             bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-800 min-h-screen">
+
+  <!-- X Button -->
+  <a href="{% url 'home' %}"
+    class="absolute top-6 right-6 text-gray-300 hover:text-red-500 transition duration-200 text-3xl font-bold">
+    &times;
+  </a>
+
+  <!-- Signup Card -->
+  <div class="w-full max-w-lg bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-10 border border-white/20">
+    <h2 class="text-4xl font-extrabold text-white mb-8 text-center drop-shadow-md">Create Account</h2>
+
+    <p class="text-center text-gray-200 mb-6 text-sm">
+      Already have an account?
+      <a href="{% url 'account_login' %}" class="text-pink-400 hover:text-pink-300 hover:underline font-medium">Login here</a>.
+    </p>
+
+    <!-- Signup Form -->
+    <form method="post" action="{% url 'account_signup' %}" class="space-y-6" onsubmit="return validatePasswords()">
+      {% csrf_token %}
+
+      <!-- Email -->
+      <div>
+        <input type="email" name="email" placeholder="Email" required
+          class="w-full px-4 py-3 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-white text-gray-800 placeholder-gray-500">
+      </div>
+
+      <!-- Password -->
+      <div>
+        <input type="password" id="password1" name="password1" placeholder="Create Password" required
+          class="w-full px-4 py-3 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-white text-gray-800 placeholder-gray-500">
+      </div>
+
+      <!-- Confirm Password -->
+      <div>
+        <input type="password" id="password2" name="password2" placeholder="Confirm Password" required
+          class="w-full px-4 py-3 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-white text-gray-800 placeholder-gray-500">
+        <p id="password-error" class="text-red-400 text-sm mt-2 hidden">Passwords do not match.</p>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit"
+        class="w-full bg-pink-600 text-white py-3 px-4 rounded-xl text-lg hover:bg-pink-700 transition font-semibold shadow-lg">
+        Sign Up
+      </button>
+    </form>
+
+    <!-- Divider -->
+    <div class="flex items-center my-6">
+      <hr class="flex-grow border-gray-400/50">
+      <span class="mx-4 text-gray-300">or</span>
+      <hr class="flex-grow border-gray-400/50">
+    </div>
+
+    <!-- Third-Party Logins -->
+    <div class="space-y-3">
+      <!-- Google -->
+      <a href="{% provider_login_url 'google' %}"
+        class="w-full flex items-center justify-center bg-white text-gray-800 rounded-xl px-4 py-3 hover:bg-gray-100 transition shadow-lg text-lg font-medium">
+        <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-6 h-6 mr-2" alt="Google">
+        Continue with Google
+      </a>
+
+      <!-- Facebook -->
+      <a href="{% provider_login_url 'facebook' %}"
+        class="w-full flex items-center justify-center bg-blue-600 text-white rounded-xl px-4 py-3 hover:bg-blue-700 transition shadow-lg text-lg font-medium">
+        <img src="https://www.svgrepo.com/show/452196/facebook-1.svg" class="w-6 h-6 mr-2 bg-white rounded-full"
+          alt="Facebook">
+        Continue with Facebook
+      </a>
+    </div>
+  </div>
+
+  <!-- JS for Password Validation -->
+  <script>
+    function validatePasswords() {
+      const password1 = document.getElementById("password1").value;
+      const password2 = document.getElementById("password2").value;
+      const errorMsg = document.getElementById("password-error");
+
+      if (password1 !== password2) {
+        errorMsg.classList.remove("hidden");
+        return false; // prevent form submit
+      }
+      errorMsg.classList.add("hidden");
+      return true;
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Security Auth Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-tr from-pink-100 via-purple-100 to-blue-100 flex items-center justify-center min-h-screen font-sans">
+
+       <!-- X Button -->
+    <a href="{% url 'dashboard' %}" 
+       class="absolute top-4 right-4 text-gray-500 hover:text-red-600 transition duration-200 text-2xl font-bold">
+      &times;
+    </a>
+    
+    <div class="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl w-full max-w-md">
+        <h2 class="text-3xl font-extrabold mb-6 text-center text-purple-700">🔐 Security Auth Panel</h2>
+
+        {% if error %}
+            <div class="bg-red-100 text-red-700 p-3 rounded mb-4 text-sm font-medium">{{ error }}</div>
+        {% endif %}
+        {% if success %}
+            <div class="bg-green-100 text-green-700 p-3 rounded mb-4 text-sm font-medium">{{ success }}</div>
+        {% endif %}
+
+        <!-- Register Form -->
+        <form method="POST" class="mb-8 space-y-3">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="register">
+
+            <h3 class="font-semibold mb-2 text-gray-700 text-lg flex items-center gap-2">
+                <span class="text-blue-600">📝</span> Register
+            </h3>
+
+            <input type="text" name="username" placeholder="Enter username"
+                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+            
+            <input type="password" name="password" placeholder="Enter password"
+                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+
+            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium transition">
+                Register
+            </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="flex items-center mb-6">
+            <hr class="flex-grow border-gray-300">
+            <span class="px-3 text-gray-500 text-sm">OR</span>
+            <hr class="flex-grow border-gray-300">
+        </div>
+
+        <!-- Login Form -->
+        <form method="POST" class="space-y-3">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="login">
+
+            <h3 class="font-semibold mb-2 text-gray-700 text-lg flex items-center gap-2">
+                <span class="text-green-600">✅</span> Login
+            </h3>
+
+            <input type="text" name="username" placeholder="Enter username"
+                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition">
+            
+            <input type="password" name="password" placeholder="Enter password"
+                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition">
+
+            <button class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium transition">
+                Login
+            </button>
+        </form>
+    </div>
+</body>
+</html>

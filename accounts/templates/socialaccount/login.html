@@ -1,0 +1,42 @@
+{% load static %}
+{% load i18n %}
+{% load socialaccount %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% trans "Google Sign In" %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-50">
+
+  <div class="w-full max-w-lg bg-white rounded-2xl shadow-xl p-10 text-center">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Sign In with Google</h2>
+
+    <p class="mb-8 text-gray-600 text-lg">
+      {% blocktrans with provider=account.get_provider.name %}
+        You are about to sign in using your <span class="font-semibold">{{ provider }}</span> account.
+      {% endblocktrans %}
+    </p>
+
+    <form method="post" class="space-y-4">
+      {% csrf_token %}
+      <button type="submit" 
+              class="w-full flex items-center justify-center bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-700 hover:bg-gray-50 transition shadow-sm text-lg">
+        <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-6 h-6 mr-2" alt="Google">
+        Continue with Google
+      </button>
+    </form>
+
+    <div class="mt-6">
+      <a href="{% url 'account_login' %}" 
+         class="text-indigo-600 hover:underline text-sm">
+         ← Back to Login
+      </a>
+    </div>
+  </div>
+
+</body>
+</html>

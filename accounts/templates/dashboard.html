@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'accounts/css/styles.css' %}">
+  
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navigation -->
+<nav class="bg-white shadow-md sticky top-0 z-50">
+  <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+    
+    <!-- Left: Logo -->
+    <a href="/" class="text-2xl font-bold text-purple-700">Midterm App</a>
+    
+    <!-- Middle: Links -->
+    <ul class="flex space-x-8 text-gray-700 font-medium mx-auto">
+      <li>
+        <a href="{% url 'dashboard' %}" 
+           class="relative hover:text-purple-700 transition duration-300
+                  after:content-[''] after:absolute after:w-0 after:h-[3px] after:left-0 after:bottom-[-4px]
+                  after:bg-purple-600 after:rounded-full after:transition-all after:duration-300 hover:after:w-full">
+          Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'security_auth' %}" 
+           class="relative hover:text-purple-700 transition duration-300
+                  after:content-[''] after:absolute after:w-0 after:h-[3px] after:left-0 after:bottom-[-4px]
+                  after:bg-purple-600 after:rounded-full after:transition-all after:duration-300 hover:after:w-full">
+          Auth
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'cipher' %}" 
+           class="relative hover:text-purple-700 transition duration-300
+                  after:content-[''] after:absolute after:w-0 after:h-[3px] after:left-0 after:bottom-[-4px]
+                  after:bg-purple-600 after:rounded-full after:transition-all after:duration-300 hover:after:w-full">
+          Encrypt
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'Qr' %}" 
+           class="relative hover:text-purple-700 transition duration-300
+                  after:content-[''] after:absolute after:w-0 after:h-[3px] after:left-0 after:bottom-[-4px]
+                  after:bg-purple-600 after:rounded-full after:transition-all after:duration-300 hover:after:w-full">
+          QR Code
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'api_panel' %}" 
+           class="relative hover:text-purple-700 transition duration-300
+                  after:content-[''] after:absolute after:w-0 after:h-[3px] after:left-0 after:bottom-[-4px]
+                  after:bg-purple-600 after:rounded-full after:transition-all after:duration-300 hover:after:w-full">
+          APIs
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'automation' %}" 
+           class="relative hover:text-purple-700 transition duration-300
+                  after:content-[''] after:absolute after:w-0 after:h-[3px] after:left-0 after:bottom-[-4px]
+                  after:bg-purple-600 after:rounded-full after:transition-all after:duration-300 hover:after:w-full">
+          Automation
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'joke_api' %}" 
+           class="relative hover:text-purple-700 transition duration-300
+                  after:content-[''] after:absolute after:w-0 after:h-[3px] after:left-0 after:bottom-[-4px]
+                  after:bg-purple-600 after:rounded-full after:transition-all after:duration-300 hover:after:w-full">
+          JokeApi
+        </a>
+      </li>
+    </ul>
+    
+    <!-- Right: Logout -->
+    <a href="{% url 'account_logout' %}" class="ml-auto text-red-600 font-semibold hover:text-red-700">
+      Logout
+    </a>
+    
+  </div>
+</nav>
+
+
+<!-- Hero Banner with Greeting -->
+<section class="relative overflow-hidden py-24 bg-gradient-to-r from-pink-400 via-fuchsia-500 to-purple-600">
+  <!-- Subtle overlay for depth -->
+  <div class="absolute inset-0 bg-black/20"></div>
+
+  <!-- Animated Clouds -->
+  <div class="absolute top-10 left-[-200px] w-96 h-40 bg-white/20 rounded-full blur-3xl animate-cloud"></div>
+  <div class="absolute top-32 left-1/2 w-80 h-32 bg-white/10 rounded-full blur-2xl animate-cloud-slow"></div>
+  <div class="absolute bottom-10 right-[-150px] w-96 h-40 bg-white/20 rounded-full blur-3xl animate-cloud"></div>
+
+  <div class="relative container mx-auto px-6 text-center text-white">
+    <h1 class="text-5xl md:text-6xl font-bold drop-shadow-lg mb-4">
+      Hello, {{ user.username }} 👋
+    </h1>
+    <p class="text-lg md:text-xl max-w-2xl mx-auto text-white/90">
+      Welcome back to your dashboard — manage your tools, explore features, and boost productivity.
+    </p>
+  </div>
+</section>
+
+  <!-- Dashboard Panels -->
+  <section class="container mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+    <!-- Panel 1 -->
+    <div class="panel bg-white shadow-lg rounded-2xl p-8 text-center hover:shadow-2xl transition">
+      <i class="fa-solid fa-user-shield text-5xl text-purple-700 mb-4"></i>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">Secure Authentication</h3>
+      <p class="text-gray-600 mb-4">Manage logins, registrations, and user security.</p>
+      <a href="{% url 'security_auth' %}" class="px-5 py-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition">
+        Go to Auth
+      </a>
+    </div>
+
+    <!-- Panel 2 -->
+    <div class="panel bg-white shadow-lg rounded-2xl p-8 text-center hover:shadow-2xl transition">
+      <i class="fa-solid fa-lock text-5xl text-blue-600 mb-4"></i>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">Cipher Encryption</h3>
+      <p class="text-gray-600 mb-4">Protect sensitive data with encryption tools.</p>
+      <a href="{% url 'cipher' %}" class="px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+        Encrypt Data
+      </a>
+    </div>
+
+    <!-- Panel 3 -->
+    <div class="panel bg-white shadow-lg rounded-2xl p-8 text-center hover:shadow-2xl transition">
+      <i class="fa-solid fa-qrcode text-5xl text-green-600 mb-4"></i>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">QR Code Generator</h3>
+      <p class="text-gray-600 mb-4">Generate quick and scannable QR codes easily.</p>
+      <a href="{% url 'Qr' %}" class="px-5 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+        Generate QR
+      </a>
+    </div>
+
+    <!-- Panel 4 -->
+    <div class="panel bg-white shadow-lg rounded-2xl p-8 text-center hover:shadow-2xl transition">
+      <i class="fa-solid fa-plug text-5xl text-pink-600 mb-4"></i>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">API Integration</h3>
+      <p class="text-gray-600 mb-4">Connect external services and APIs seamlessly.</p>
+      <a href="{% url 'api_panel' %}" class="px-5 py-3 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition">
+        View APIs
+      </a>
+    </div>
+
+    <!-- Panel 5 -->
+    <div class="panel bg-white shadow-lg rounded-2xl p-8 text-center hover:shadow-2xl transition">
+      <i class="fa-solid fa-robot text-5xl text-yellow-500 mb-4"></i>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">Daily Automation</h3>
+      <p class="text-gray-600 mb-4">Automate tasks to improve your productivity.</p>
+      <a href="{% url 'automation' %}" class="px-5 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition">
+        Automate
+      </a>
+    </div>
+
+<div class="panel bg-white shadow-lg rounded-2xl p-8 text-center hover:shadow-2xl transition">
+  <i class="fa-regular fa-face-grin-squint-tears text-5xl text-orange-500 mb-4"></i>
+  <h3 class="text-xl font-bold text-gray-800 mb-2">API Joke Encryption</h3>
+  <p class="text-gray-600 mb-4">Throws joke using API and QR code.</p>
+  <a href="{% url 'joke_api' %}" class="px-5 py-3 bg-orange-500 text-white rounded-lg hover:bg-yellow-600 transition">
+    API Joke Encryption
+  </a>
+</div>
+
+
+  </section>
+
+  <script src="{% static 'accounts/js/main.js' %}"></script>
+
+</body>
+</html>

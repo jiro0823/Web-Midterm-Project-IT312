@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JokeAPI Encrypt & QR Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gradient-to-br from-pink-100 via-purple-50 to-indigo-100 min-h-screen flex items-center justify-center font-sans">
+
+     <!-- X Button -->
+    <a href="{% url 'dashboard' %}" 
+       class="absolute top-4 right-4 text-gray-500 hover:text-red-600 transition duration-200 text-2xl font-bold">
+      &times;
+    </a>
+
+  <div class="max-w-3xl w-full bg-white/95 backdrop-blur-md shadow-2xl rounded-2xl p-8">
+    <!-- Header -->
+    <div class="flex flex-col items-center mb-8">
+      <div class="w-16 h-16 flex items-center justify-center rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 shadow-lg">
+        <i data-feather="smile" class="text-white w-8 h-8"></i>
+      </div>
+      <h2 class="text-3xl font-extrabold mt-4 text-gray-800">JokeAPI Encrypt & QR Panel</h2>
+      <p class="text-gray-500 text-sm">Fetch a random joke and see it encrypted in multiple ciphers with QR codes</p>
+    </div>
+
+    <!-- Form -->
+    <form method="POST" class="mb-10 grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+      {% csrf_token %}
+      <div>
+        <label class="block font-semibold mb-1 text-gray-700 flex items-center gap-2">
+          <i data-feather="key" class="w-4 h-4 text-purple-600"></i> Caesar Shift
+        </label>
+        <input type="number" name="caesar_shift" value="{{ caesar_shift }}"
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none">
+      </div>
+      <div>
+        <label class="block font-semibold mb-1 text-gray-700 flex items-center gap-2">
+          <i data-feather="lock" class="w-4 h-4 text-indigo-600"></i> Vigenère Key
+        </label>
+        <input type="text" name="vigenere_key" value="{{ vigenere_key }}"
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none">
+      </div>
+      <div>
+        <button class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-3 rounded-lg font-medium hover:shadow-lg hover:opacity-90 transition flex items-center justify-center gap-2">
+          <i data-feather="refresh-cw" class="w-5 h-5"></i> Fetch & Encrypt
+        </button>
+      </div>
+    </form>
+
+    <!-- Results -->
+    {% if joke %}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Plaintext -->
+      <div class="bg-gray-50 rounded-xl p-4 shadow">
+        <h3 class="font-semibold text-lg mb-2 flex items-center gap-2 text-gray-700">
+          <i data-feather="file-text" class="w-5 h-5 text-blue-600"></i> Plaintext Joke
+        </h3>
+        <div class="bg-white p-3 rounded-lg border mb-3 text-sm text-gray-800">{{ joke }}</div>
+        <img src="data:image/png;base64,{{ qr_plain }}" class="mx-auto rounded-lg shadow">
+      </div>
+
+      <!-- Atbash -->
+      <div class="bg-gray-50 rounded-xl p-4 shadow">
+        <h3 class="font-semibold text-lg mb-2 flex items-center gap-2 text-gray-700">
+          <i data-feather="shuffle" class="w-5 h-5 text-pink-600"></i> Atbash
+        </h3>
+        <div class="bg-white p-3 rounded-lg border mb-3 text-sm text-gray-800">{{ atbash_joke }}</div>
+        <img src="data:image/png;base64,{{ qr_atbash }}" class="mx-auto rounded-lg shadow">
+      </div>
+
+      <!-- Caesar -->
+      <div class="bg-gray-50 rounded-xl p-4 shadow">
+        <h3 class="font-semibold text-lg mb-2 flex items-center gap-2 text-gray-700">
+          <i data-feather="rotate-ccw" class="w-5 h-5 text-purple-600"></i> Caesar (Shift={{ caesar_shift }})
+        </h3>
+        <div class="bg-white p-3 rounded-lg border mb-3 text-sm text-gray-800">{{ caesar_joke }}</div>
+        <img src="data:image/png;base64,{{ qr_caesar }}" class="mx-auto rounded-lg shadow">
+      </div>
+
+      <!-- Vigenère -->
+      <div class="bg-gray-50 rounded-xl p-4 shadow">
+        <h3 class="font-semibold text-lg mb-2 flex items-center gap-2 text-gray-700">
+          <i data-feather="hash" class="w-5 h-5 text-indigo-600"></i> Vigenère (Key={{ vigenere_key }})
+        </h3>
+        <div class="bg-white p-3 rounded-lg border mb-3 text-sm text-gray-800">{{ vigenere_joke }}</div>
+        <img src="data:image/png;base64,{{ qr_vigenere }}" class="mx-auto rounded-lg shadow">
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    feather.replace()
+  </script>
+</body>
+</html>

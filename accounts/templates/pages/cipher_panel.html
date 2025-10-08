@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cipher Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+       <!-- X Button -->
+    <a href="{% url 'dashboard' %}" 
+       class="absolute top-4 right-4 text-gray-500 hover:text-red-600 transition duration-200 text-2xl font-bold">
+      &times;
+    </a>
+    
+<div class="bg-white p-8 rounded shadow-md w-full max-w-lg">
+    <h2 class="text-2xl font-bold mb-4 text-center">Cipher Panel ({{ user }})</h2>
+    <form method="POST" class="mb-6">
+        {% csrf_token %}
+        <h3 class="font-semibold mb-2">Atbash Cipher</h3>
+        <input type="hidden" name="cipher" value="atbash">
+        <input type="text" name="text" placeholder="Enter text" class="w-full p-2 border rounded mb-2">
+        <button class="w-full bg-blue-600 text-white py-2 rounded mb-4">Encrypt/Decrypt</button>
+    </form>
+    <form method="POST" class="mb-6">
+        {% csrf_token %}
+        <h3 class="font-semibold mb-2">Caesar Cipher</h3>
+        <input type="hidden" name="cipher" value="caesar">
+        <input type="text" name="text" placeholder="Enter text" class="w-full p-2 border rounded mb-2">
+        <input type="number" name="shift" placeholder="Shift" class="w-full p-2 border rounded mb-2">
+        <select name="mode" class="w-full p-2 border rounded mb-2">
+            <option value="encrypt">Encrypt</option>
+            <option value="decrypt">Decrypt</option>
+        </select>
+        <button class="w-full bg-blue-600 text-white py-2 rounded mb-4">Go</button>
+    </form>
+    <form method="POST">
+        {% csrf_token %}
+        <h3 class="font-semibold mb-2">Vigenère Cipher</h3>
+        <input type="hidden" name="cipher" value="vigenere">
+        <input type="text" name="text" placeholder="Enter text" class="w-full p-2 border rounded mb-2">
+        <input type="text" name="key" placeholder="Key" class="w-full p-2 border rounded mb-2">
+        <select name="mode" class="w-full p-2 border rounded mb-2">
+            <option value="encrypt">Encrypt</option>
+            <option value="decrypt">Decrypt</option>
+        </select>
+        <button class="w-full bg-blue-600 text-white py-2 rounded">Go</button>
+    </form>
+    {% if result %}
+        <div class="mt-6 p-4 rounded-xl bg-green-100 text-green-700 text-center">
+            Result: {{ result }}
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>

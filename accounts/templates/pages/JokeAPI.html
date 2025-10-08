@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Joke with Encryption & QR Codes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+
+     <!-- X Button -->
+    <a href="{% url 'dashboard' %}" 
+       class="absolute top-4 right-4 text-gray-500 hover:text-red-600 transition duration-200 text-2xl font-bold">
+      &times;
+    </a>
+
+  <div class="min-h-screen bg-gray-50 flex items-center justify-center px-6 py-12">
+    <div class="w-full max-w-3xl bg-white rounded-2xl shadow-xl p-8 space-y-8 transition-all duration-500 hover:shadow-2xl">
+      
+      <!-- Header -->
+      <div class="flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="h-8 w-8 text-indigo-600 animate-bounce" 
+             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M9.75 9.75L14.25 14.25M14.25 9.75L9.75 14.25M21 12A9 9 0 113 12a9 9 0 0118 0z" />
+        </svg>
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-800">
+          😂 Random Joke with Encryption & QR Codes
+        </h2>
+      </div>
+
+      <!-- Joke Sections -->
+      <div class="grid gap-6">
+        
+        <!-- Plain Joke -->
+        <div class="p-5 bg-gray-50 border border-gray-200 rounded-xl shadow-sm hover:shadow-md transform hover:scale-[1.01] transition-all duration-300 animate-fadeIn">
+          <div class="flex items-center gap-2 mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                 class="h-6 w-6 text-green-600" 
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M12 4v16m8-8H4" />
+            </svg>
+            <p class="font-semibold text-lg">Plain Joke:</p>
+          </div>
+          <p class="p-3 bg-white rounded-lg text-gray-700">{{ joke }}</p>
+          <img src="data:image/png;base64,{{ qr_plain }}" class="mt-3 w-32 md:w-40 transition-transform duration-300 hover:scale-110" />
+        </div>
+
+        <!-- Atbash -->
+        <div class="p-5 bg-gray-50 border border-gray-200 rounded-xl shadow-sm hover:shadow-md transform hover:scale-[1.01] transition-all duration-300 animate-fadeIn">
+          <div class="flex items-center gap-2 mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                 class="h-6 w-6 text-blue-600" 
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2zm0 0V5.5a2.5 2.5 0 015 0V8" />
+            </svg>
+            <p class="font-semibold text-lg">🔐 Atbash:</p>
+          </div>
+          <p class="p-3 bg-white rounded-lg text-gray-700">{{ atbash_joke }}</p>
+          <img src="data:image/png;base64,{{ qr_atbash }}" class="mt-3 w-32 md:w-40 transition-transform duration-300 hover:scale-110" />
+        </div>
+
+        <!-- Caesar -->
+        <div class="p-5 bg-gray-50 border border-gray-200 rounded-xl shadow-sm hover:shadow-md transform hover:scale-[1.01] transition-all duration-300 animate-fadeIn">
+          <div class="flex items-center gap-2 mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                 class="h-6 w-6 text-purple-600" 
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M16 12H8m8 0a4 4 0 00-8 0" />
+            </svg>
+            <p class="font-semibold text-lg">🔑 Caesar (Shift=6):</p>
+          </div>
+          <p class="p-3 bg-white rounded-lg text-gray-700">{{ caesar_joke }}</p>
+          <img src="data:image/png;base64,{{ qr_caesar }}" class="mt-3 w-32 md:w-40 transition-transform duration-300 hover:scale-110" />
+        </div>
+
+        <!-- Vigenere -->
+        <div class="p-5 bg-gray-50 border border-gray-200 rounded-xl shadow-sm hover:shadow-md transform hover:scale-[1.01] transition-all duration-300 animate-fadeIn">
+          <div class="flex items-center gap-2 mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                 class="h-6 w-6 text-pink-600" 
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M12 11c0-.828.895-1.5 2-1.5s2 .672 2 1.5-.895 1.5-2 1.5-2-.672-2-1.5zm0 0V7.5a2 2 0 00-2-2H6" />
+            </svg>
+            <p class="font-semibold text-lg">🗝️ Vigenere (Key=MANGO):</p>
+          </div>
+          <p class="p-3 bg-white rounded-lg text-gray-700">{{ vigenere_joke }}</p>
+          <img src="data:image/png;base64,{{ qr_vigenere }}" class="mt-3 w-32 md:w-40 transition-transform duration-300 hover:scale-110" />
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Animations -->
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn {
+      animation: fadeIn 0.6s ease-out;
+    }
+  </style>
+
+</body>
+</html>
